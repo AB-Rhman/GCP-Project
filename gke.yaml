@@ -20,3 +20,20 @@ spec:
         env:
           - name: PORT
             value: "5000"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "gke-service"
+  namespace: "gcp-devops"
+  labels:
+    app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 5000
+  selector:
+    app: "gcp"
+  type: "LoadBalancer"
